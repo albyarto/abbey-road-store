@@ -1,4 +1,8 @@
 ## Tugas 2
+
+### Tautan ke Project di PWS :
+https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
+
 ### Checklist 1: Membuat Proyek Django Baru ☑️
 1. Buat direktori baru bernama `abbey-road-store` dan nyalakan _virtual environment_ dengan menjalankan perintah berikut di Terminal yang sudah berada di direktori `abbey-road-store`.
    
