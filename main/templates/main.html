@@ -19,7 +19,12 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-    h1, h5 {
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      text-align:center;
+    }
+    h5 {
       color: #333;
       margin-bottom: 10px;
     }
@@ -31,11 +36,21 @@
       border-top: 1px solid #ddd;
       padding-top: 20px;
     }
+    img {
+      display: block;
+      width: 30%; 
+      height: auto;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Abbey Road Co.</h1>
+    <h1></h1>
+
+    <img src="https://i.imgur.com/SH83aTr.png" alt="Abbey Road Product Image">
+
     <p><strong>Product Name: </strong>{{ name }}</p>
     <p><strong>Price: </strong>{{ price }}</p>
     <p><strong>Description: </strong>{{ description }}</p>
