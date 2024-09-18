@@ -1,65 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abbey Road Co.</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      color: #333;
-      margin-bottom: 10px;
-      text-align:center;
-    }
-    h5 {
-      color: #333;
-      margin-bottom: 10px;
-    }
-    p {
-      margin-bottom: 20px;
-      color: #555;
-    }
-    .product-details {
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
-    }
-    img {
-      display: block;
-      width: 30%; 
-      height: auto;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Abbey Road Co.</h1>
-    <h1></h1>
+{% extends 'base.html' %}
 
-    <img src="https://i.imgur.com/SH83aTr.png" alt="Abbey Road Product Image">
+<title>Abbey Road Co.</title>
+{% block meta %}
+<style>
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  .container:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
 
-    <p><strong>Product Name: </strong>{{ name }}</p>
-    <p><strong>Price: </strong>{{ price }}</p>
-    <p><strong>Description: </strong>{{ description }}</p>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
 
-    <div class="product-details">
-      <h5>Your Information</h5>
-      <p><strong>Name: </strong>{{ my_name }}</p>
-      <p><strong>Class: </strong>{{ class }}</p>
-    </div>
+  th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #34495e;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  td {
+    text-align: center;
+    color: #555;
+  }
+
+  tr:hover {
+    background-color: #f4f4f4;
+  }
+
+  .no-data {
+    text-align: center;
+    font-style: italic;
+    color: #7f8c8d;
+  }
+
+  button {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #16a085;
+  }
+
+  .product-details {
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+
+  .product-details h5 {
+    font-size: 1.2em;
+    color: #2980b9;
+    margin-bottom: 10px;
+  }
+
+  .product-details p {
+    font-size: 1em;
+    color: #2c3e50;
+  }
+
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ app_name }}</h1>
+
+  {% if not product_entries %}
+    <p class="no-data">Belum ada data product pada Abbey Road Store.</p>
+  {% else %}
+    <table>
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Description</th>
+      </tr>
+    
+      {% for product_entry in product_entries %}
+      <tr>
+        <td>{{ product_entry.name }}</td>
+        <td>{{ product_entry.price }}</td>
+        <td>{{ product_entry.description }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+
+  <br />
+
+  <a href="{% url 'main:create_product_entry' %}">
+    <button>Add New Product Entry</button>
+  </a>
+
+  <div class="product-details">
+    <h5>Your Information</h5>
+    <p><strong>Name: </strong>{{ my_name }}</p>
+    <p><strong>Class: </strong>{{ class }}</p>
   </div>
-</body>
-</html>
+</div>
+
+{% endblock content %}

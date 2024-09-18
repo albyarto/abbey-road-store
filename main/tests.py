@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.utils import timezone
-from .models import AttributeEntry
+from .models import ProductEntry
 
 class mainTest(TestCase):
     def test_main_url_is_exist(self):
