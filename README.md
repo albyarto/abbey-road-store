@@ -315,6 +315,12 @@ Jika `csrf_token` tidak ditambahkan pada form di Django, penyerang dapat membuat
    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
    ```
-### Checklist 5: Mengakses keempat URL di poin 2 menggunakan Postman☑️
-
-### Checklist 6: Melakukan add-commit-push ke GitHub.☑️
+### Mengakses keempat URL di poin 2 menggunakan Postman
+1. FORMAT XML
+![xml](https://github.com/user-attachments/assets/b6265130-6920-4da2-879a-7b65209de83b)
+2. FORMAT JSON
+![json](https://github.com/user-attachments/assets/7387f96e-9532-4721-b783-72d3e0051161)
+3. FORMAT XML BY ID
+![xml by id](https://github.com/user-attachments/assets/226b5246-b669-40d7-90ac-4bcc2905dbbd)
+4. FORMAT JSON BY ID
+![json by id](https://github.com/user-attachments/assets/1198cf6f-cc0e-40d7-84ac-2d9edd56a751)
