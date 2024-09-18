@@ -1,32 +1,31 @@
 {% extends 'base.html' %}
 
 <title>Abbey Road Co.</title>
+
 {% block meta %}
 <style>
   body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg');
+    background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
   }
-  
+
   .container {
     max-width: 900px;
     margin: 40px auto;
     padding: 30px;
-    background-color: #fff;
+    background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
   }
+
   .container:hover {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   }
-  
+
   h1 {
     color: #2c3e50;
     text-align: center;
@@ -43,19 +42,15 @@
   th, td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
+    text-align: center;
   }
 
   th {
-    background-color: #34495e;
+    background: #34495e;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-  }
-
-  td {
-    text-align: center;
-    color: #555;
   }
 
   tr:hover {
@@ -69,9 +64,8 @@
   }
 
   button {
-    display: inline-block;
     padding: 12px 20px;
-    background-color: #1abc9c;
+    background: #1abc9c;
     color: white;
     border: none;
     border-radius: 8px;
@@ -81,7 +75,7 @@
   }
 
   button:hover {
-    background-color: #16a085;
+    background: #16a085;
   }
 
   .product-details {
@@ -128,8 +122,6 @@
     </table>
   {% endif %}
 
-  <br />
-
   <a href="{% url 'main:create_product_entry' %}">
     <button>Add New Product Entry</button>
   </a>
@@ -140,5 +132,4 @@
     <p><strong>Class: </strong>{{ class }}</p>
   </div>
 </div>
-
 {% endblock content %}
