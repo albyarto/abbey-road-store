@@ -324,3 +324,24 @@ Jika `csrf_token` tidak ditambahkan pada form di Django, penyerang dapat membuat
 ![xml by id](https://github.com/user-attachments/assets/226b5246-b669-40d7-90ac-4bcc2905dbbd)
 4. FORMAT JSON BY ID
 ![json by id](https://github.com/user-attachments/assets/1198cf6f-cc0e-40d7-84ac-2d9edd56a751)
+
+---
+
+## Tugas 4
+
+### Apa perbedaan antara HttpResponseRedirect() dan redirect()?
+
+### Jelaskan cara kerja penghubungan model Product dengan User!
+
+### Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+
+### Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### Checklist 1: Mengimplementasikan fungsi registrasi, login, dan logout☑️
+
+### Checklist 2: Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.☑️
+
+### Checklist 3: Menghubungkan model Product dengan User☑️
+
+### Checklist 4: Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.☑️
