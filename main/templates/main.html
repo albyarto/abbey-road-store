@@ -101,7 +101,7 @@
 {% block content %}
 <div class="container">
   <h1>{{ app_name }}</h1>
-
+  <h1>Halo {{ name }}!</h1>
   {% if not product_entries %}
     <p class="no-data">Belum ada data product pada Abbey Road Store.</p>
   {% else %}
@@ -125,7 +125,10 @@
   <a href="{% url 'main:create_product_entry' %}">
     <button>Add New Product Entry</button>
   </a>
-
+  <a href="{% url 'main:logout' %}">
+    <button>Logout</button>
+  </a>
+  <h5>Sesi terakhir login: {{ last_login }}</h5>
   <div class="information-details">
     <h5>Your Information</h5>
     <p><strong>Name: </strong>{{ my_name }}</p>
