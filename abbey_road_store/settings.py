@@ -125,3 +125,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://pbp.cs.ui.ac.id/muhammad.albyarto/abbeyroadstore", "https://pbp.cs.ui.ac.id/muhammad.albyarto/abbeyroadstore"]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

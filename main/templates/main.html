@@ -4,135 +4,242 @@
 
 {% block meta %}
 <style>
+  /* Import Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;700&display=swap');
+
+  /* Global Styles */
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
     background-size: cover;
+    color: #fff;
   }
 
+  /* Container */
   .container {
     max-width: 900px;
-    margin: 40px auto;
+    margin: 50px auto;
     padding: 30px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
 
-  .container:hover {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-  }
-
+  /* Heading */
   h1 {
-    color: #2c3e50;
+    font-family: 'Lobster', cursive;
+    color: #f1c40f;
     text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 30px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
+    font-size: 3em;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   }
 
-  th, td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
+  /* Greeting Text */
+  .greeting {
     text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    color: #ecf0f1;
   }
 
-  th {
-    background: #34495e;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  /* Product Card */
+  .product-card {
+    display: flex;
+    align-items: center;
+    border: 2px solid #f1c40f;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s;
   }
 
-  tr:hover {
-    background-color: #f4f4f4;
+  .product-card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.2);
   }
 
-  .no-data {
-    text-align: center;
-    font-style: italic;
-    color: #7f8c8d;
+  /* Product Image */
+  .product-image {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
   }
 
-  button {
-    padding: 12px 20px;
-    background: #1abc9c;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  /* Product Details */
+  .product-details {
+    flex-grow: 1;
   }
 
-  button:hover {
-    background: #16a085;
+  .product-name {
+    font-family: 'Lobster', cursive;
+    font-size: 1.8em;
+    color: #f1c40f;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
   }
 
-  .information-details {
-    border-top: 2px solid #ddd;
-    padding-top: 20px;
-    margin-top: 20px;
-  }
-
-  .information-details h5 {
-    font-size: 1.2em;
-    color: #2980b9;
+  .product-price {
+    font-size: 1.4em;
+    color: #ecf0f1;
     margin-bottom: 10px;
   }
 
-  .information-details p {
+  .product-description {
     font-size: 1em;
+    color: #bdc3c7;
+  }
+
+  /* No Data Message */
+  .no-data {
+    text-align: center;
+    font-style: italic;
+    color: #95a5a6;
+    margin: 20px 0;
+  }
+
+  /* Button Group */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  /* Buttons */
+  .button, .button-logout {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .button {
+    background-color: #f1c40f;
     color: #2c3e50;
   }
 
+  .button:hover {
+    background-color: #d4ac0d;
+    transform: scale(1.05);
+  }
+
+  .button-logout {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+
+  .button-logout:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+  /* Information Details */
+  .information-details {
+    margin-top: 30px;
+    border-top: 1px solid #f1c40f;
+    padding-top: 20px;
+    font-size: 1em;
+    color: #ecf0f1;
+  }
+
+  .information-details h5 {
+    font-family: 'Lobster', cursive;
+    font-size: 1.4em;
+    color: #f1c40f;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .information-details p {
+    margin: 5px 0;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      margin: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    .greeting {
+      font-size: 1.2em;
+    }
+
+    .button-group {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .button, .button-logout {
+      width: 100%;
+    }
+
+    .product-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
 </style>
 {% endblock meta %}
 
 {% block content %}
 <div class="container">
   <h1>{{ app_name }}</h1>
-  <h1>Halo {{ name }}!</h1>
+  <p class="greeting">Halo {{ name }}!</p>
+
   {% if not product_entries %}
-    <p class="no-data">Belum ada data product pada Abbey Road Store.</p>
+  <p class="no-data">Belum ada data product pada Abbey Road Store.</p>
   {% else %}
-    <table>
-      <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Description</th>
-      </tr>
-    
-      {% for product_entry in product_entries %}
-      <tr>
-        <td>{{ product_entry.name }}</td>
-        <td>Rp.{{ product_entry.price }}</td>
-        <td>{{ product_entry.description }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+    {% for product_entry in product_entries %}
+      <div class="product-card">
+        {% if product_entry.image %}
+          <div class="product-image" style="background-image: url('{{ product_entry.image.url }}');"></div>
+        {% else %}
+          <div class="product-image" style="background-image: url('https://via.placeholder.com/150');"></div>
+        {% endif %}
+        <div class="product-details">
+          <div class="product-name">{{ product_entry.name }}</div>
+          <div class="product-price">Rp. {{ product_entry.price }}</div>
+          <div class="product-description">{{ product_entry.description }}</div>
+        </div>
+      </div>
+    {% endfor %}
   {% endif %}
 
-  <a href="{% url 'main:create_product_entry' %}">
-    <button>Add New Product Entry</button>
-  </a>
-  <a href="{% url 'main:logout' %}">
-    <button>Logout</button>
-  </a>
-  <h5>Sesi terakhir login: {{ last_login }}</h5>
+  <div class="button-group">
+    <a href="{% url 'main:create_product_entry' %}" class="button">Add New Product</a>
+    <a href="{% url 'main:logout' %}" class="button-logout">Logout</a>
+  </div>
+
   <div class="information-details">
-    <h5>Your Information</h5>
-    <p><strong>Name: </strong>{{ my_name }}</p>
-    <p><strong>Class: </strong>{{ class }}</p>
+    <h5>Sesi Terakhir Login: {{ last_login }}</h5>
+    <p><strong>Name:</strong> {{ my_name }}</p>
+    <p><strong>Class:</strong> {{ class }}</p>
   </div>
 </div>
 {% endblock content %}

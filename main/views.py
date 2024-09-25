@@ -26,7 +26,7 @@ def show_main(request):
     return render(request, "main.html", context)
 
 def create_product_entry(request):
-    form = ProductEntryForm(request.POST or None)
+    form = ProductEntryForm(request.POST, request.FILES)
 
     if form.is_valid() and request.method == "POST":
         product_entry = form.save(commit=False)
