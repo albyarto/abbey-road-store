@@ -577,3 +577,49 @@ Jadi secara keseluruhan, autentikasi memastikan siapa pengguna tersebut, sedangk
    ```
    <h5>Sesi terakhir login: {{ last_login }}</h5>
    ```
+
+---
+
+## Tugas 5
+
+### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
+### Menambahkan Fitur _edit_ dan _delete_ untuk Masing-Masing _Item_
+1. Di berkas `views.py` pada folder `main`, tambahkan fungsi `delete` dan `edit`.
+   ```
+   def delete_product(request, id):
+      product = ProductEntry.objects.get(pk = id)
+      product.delete()
+      return HttpResponseRedirect(reverse('main:show_main'))
+   ```
+   ```
+   def edit_product(request, id):
+    product = ProductEntry.objects.get(pk = id)
+    form = ProductEntryForm(request.POST or None, instance=progress)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+   ```
+2. Di folder yang sama, buka berkas `urls.py`, lalu import fungsi delete dan edit.
+   ```
+   from main.views import delete_product, edit_product
+   ```
+   Masih di berkas yang sama, tambahkan `path` berikut pada `urlpatterns`
+   ```
+   path('edit-product/<int:id>', edit_product, name='edit_product'),
+   path('delete/<int:id>', delete_product, name='delete_product'),
+   ```
+
+### Melakukan kustomisasi pada halaman login, register, dan main
+Untuk melakukan kusotmisasi, kita dapat menambahkan beberapa _style_ pada bagian-bagian yang ingin dikustomisasi. Seperti pada `abbey-road-store` ini, saya sudah mengkustomisasi daftar item menjadi menggunakan _card_, mengkustomisasi tombol, mengatur posisi teks, dan mengatur warna latar belakang _website_.
