@@ -1,246 +1,62 @@
 {% extends 'base.html' %}
 
-<title> Abbey Road Co. </title>
-
+<title>Abbey Road Co.</title>
+{% load static %}
 {% block meta %}
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;700&display=swap');
-
-  /* Global Styles */
   body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
     background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #fff;
-  }
-
-  /* Overlay */
-  .container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 40px;
-    background: rgba(0, 0, 0, 0.75); /* Slightly lighter for better readability */
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
-    text-align: center;
-  }
-
-  /* Heading */
-  h1 {
-    font-family: 'Lobster', cursive;
-    color: #f39c12;
-    font-size: 3.5em; /* Larger and more prominent */
-    margin-bottom: 30px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
-  }
-
-  /* Greeting Text */
-  .greeting {
-    font-size: 1.6em;
-    margin-bottom: 40px;
-    color: #ecf0f1;
-    letter-spacing: 1px;
-  }
-
-  /* Product Card */
-  .product-card {
-    display: flex;
-    align-items: center;
-    border: 2px solid #f1c40f;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 30px;
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-  }
-
-  .product-card:hover {
-    transform: translateY(-8px);
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  }
-
-  /* Product Image */
-  .product-image {
-    flex-shrink: 0;
-    width: 150px;
-    height: 150px;
-    margin-right: 20px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-  }
-
-  /* Product Details */
-  .product-details {
-    flex-grow: 1;
-    text-align: left;
-  }
-
-  .product-name {
-    font-family: 'Lobster', cursive;
-    font-size: 2em;
-    color: #f1c40f;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  }
-
-  .product-price {
-    font-size: 1.6em;
-    color: #ecf0f1;
-    margin-bottom: 10px;
-  }
-
-  .product-description {
-    font-size: 1.1em;
-    color: #bdc3c7;
-  }
-
-  /* Button Group */
-  .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-  }
-
-  /* Buttons */
-  .button,
-  .button-logout {
-    padding: 14px 30px;
-    border: none;
-    border-radius: 30px;
-    font-size: 17px;
-    cursor: pointer;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  }
-
-  .button {
-    background-color: #f1c40f;
-    color: #2c3e50;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .button:hover {
-    background-color: #e67e22;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  .button-logout {
-    background-color: #e74c3c;
-    color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .button-logout:hover {
-    background-color: #c0392b;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Information Details */
-  .information-details {
-    margin-top: 40px;
-    border-top: 1px solid #f1c40f;
-    padding-top: 25px;
-    font-size: 1.1em;
-    color: #ecf0f1;
-  }
-
-  .information-details h5 {
-    font-family: 'Lobster', cursive;
-    font-size: 1.6em;
-    color: #f1c40f;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Responsive Styles */
-  @media (max-width: 600px) {
-    .container {
-      padding: 25px;
-      margin: 25px;
-    }
-
-    h1 {
-      font-size: 2.8em;
-    }
-
-    .greeting {
-      font-size: 1.3em;
-    }
-
-    .product-card {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .product-image {
-      width: 100%;
-      height: 200px;
-      margin-right: 0;
-      margin-bottom: 15px;
-    }
-
-    .button-group {
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .button,
-    .button-logout {
-      width: 100%;
-    }
   }
 </style>
 {% endblock meta %}
 
 {% block content %}
 {% include 'navbar.html' %}
-<div class="container">
-  <h1>{{ app_name }}</h1>
-  <p class="greeting">Halo {{ name }}!</p>
+
+<div class="container max-w-3xl mx-auto mt-16 p-6 sm:p-8 md:p-10 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl text-center text-white">
+  <h1 class="text-2xl font-bold text-amber-400 text-4xl sm:text-5xl mb-6 drop-shadow-lg">{{ app_name }}</h1>
 
   {% if not product_entries %}
-  <p class="no-data">Belum ada data product pada Abbey Road Store.</p>
+    <img src="{% static 'image/beatles.png' %}" alt="Sad face" class="w-32 h-32 mb-6 mx-auto"/>
+    <p class="no-data text-gray-200">Belum ada data product pada Abbey Road Store.</p>
   {% else %}
     {% for product_entry in product_entries %}
-      <div class="product-card">
+      <div class="product-card flex flex-col sm:flex-row items-center border-2 border-amber-500 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 bg-white/10 shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2 hover:bg-white/20">
         {% if product_entry.image %}
-          <div class="product-image" style="background-image: url('{{ product_entry.image.url }}');"></div>
+          <div class="product-image w-32 h-32 sm:w-36 sm:h-36 mb-4 sm:mb-0 mr-0 sm:mr-5 bg-cover bg-center rounded-lg" style="background-image: url('{{ product_entry.image.url }}');"></div>
         {% else %}
-          <div class="product-image" style="background-image: url('https://via.placeholder.com/150');"></div>
+          <div class="product-image w-32 h-32 sm:w-36 sm:h-36 mb-4 sm:mb-0 mr-0 sm:mr-5 bg-cover bg-center rounded-lg" style="background-image: url('https://via.placeholder.com/150');"></div>
         {% endif %}
-        <div class="product-details">
-          <div class="product-name">{{ product_entry.name }}</div>
-          <div class="product-price">Rp. {{ product_entry.price }}</div>
-          <div class="product-description">{{ product_entry.description }}</div>
+        
+        <div class="product-details text-left flex-grow mb-4 sm:mb-0">
+          <div class="product-name font-lobster text-amber-400 text-2xl sm:text-3xl mb-2 drop-shadow-md">{{ product_entry.name }}</div>
+          <div class="product-price text-lg sm:text-xl text-gray-100 mb-2">Rp. {{ product_entry.price }}</div>
+          <div class="product-description text-gray-300 text-sm sm:text-base">{{ product_entry.description }}</div>
         </div>
-        <a href="{% url 'main:edit_product' product_entry.pk %}">
-          <button class="button">Edit</button>
-        </a>
-        <a href="{% url 'main:delete_product' product_entry.pk %}">
-          <button class="button-logout">Delete</button>
-        </a>
+        
+        <div class="flex flex-col sm:flex-row">
+          <a href="{% url 'main:edit_product' product_entry.pk %}" class="mb-4 sm:mb-0 sm:mr-4">
+            <button class="button bg-amber-500 text-gray-900 rounded-full py-2 px-4 sm:py-3 sm:px-6 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1">Edit</button>
+          </a>
+          <a href="{% url 'main:delete_product' product_entry.pk %}">
+            <button class="button-logout bg-red-600 text-white rounded-full py-2 px-4 sm:py-3 sm:px-6 shadow-md hover:bg-red-800 hover:shadow-xl transition-transform transform hover:-translate-y-1">Delete</button>
+          </a>
+        </div>
       </div>
     {% endfor %}
   {% endif %}
 
-  <div class="button-group">
-    <a href="{% url 'main:create_product_entry' %}" class="button">Add New Product</a>
-    <a href="{% url 'main:logout' %}" class="button-logout">Logout</a>
+  <div class="button-group flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-8">
+    <a href="{% url 'main:create_product_entry' %}" class="button bg-amber-500 text-gray-900 rounded-full py-3 px-8 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1">Add New Product</a>
+    <a href="{% url 'main:logout' %}" class="button-logout bg-red-600 text-white rounded-full py-3 px-8 shadow-md hover:bg-red-800 hover:shadow-xl transition-transform transform hover:-translate-y-1">Logout</a>
   </div>
 
-  <div class="information-details">
-    <h5>Sesi Terakhir Login: {{ last_login }}</h5>
+  <div class="information-details mt-12 pt-8 border-t border-amber-500 text-gray-300">
+    <h5 class="font-lobster text-2xl text-amber-400 mb-4 drop-shadow-md">Sesi Terakhir Login: {{ last_login }}</h5>
     <p><strong>Name:</strong> {{ my_name }}</p>
     <p><strong>Class:</strong> {{ class }}</p>
   </div>
 </div>
+
 {% endblock content %}

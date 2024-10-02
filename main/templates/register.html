@@ -3,139 +3,60 @@
 {% block meta %}
 <title>Register</title>
 <style>
-  /* Registration Page Styles */
-  .form-style {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
-  }
-
-  h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: #333;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    color: #333;
-    font-weight: 600;
-  }
-
-  input[type="text"], input[type="password"], input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #495057;
-    transition: border-color 0.3s ease;
-  }
-
-  input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
-    outline: none;
-    border-color: #4a4cb3;
-  }
-
-  .btn-register {
-    width: 100%;
-    padding: 12px;
-    background-color: #4a4cb3;
-    color: white;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .btn-register:hover {
-    background-color: #3b3da5;
-  }
-
-  .alert-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-
-  .register-link {
-    font-size: 0.9rem;
-    color: #4a4cb3;
-    text-decoration: none;
-  }
-
-  .register-link:hover {
-    text-decoration: underline;
+  body {
+    background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
+    background-size: cover;
   }
 </style>
 {% endblock meta %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8 form-style">
-    <div>
-      <h2 class="text-center text-3xl font-extrabold">
-        Create your account
-      </h2>
-    </div>
-    
-    <form method="POST" class="space-y-6">
-      {% csrf_token %}
-      <input type="hidden" name="remember" value="true">
-      <div class="-space-y-px rounded-md shadow-sm">
-        {% for field in form %}
-          <div class="{% if not forloop.first %}mt-4{% endif %}">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <div class="relative">
-              {{ field }}
-              {% if field.errors %}
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-              {% endif %}
-            </div>
-            {% if field.errors %}
-              <p class="text-red-600 text-sm mt-1">{{ field.errors }}</p>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
+<div class="container max-w-md mx-auto mt-16 p-8 sm:p-10 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl text-center text-white">
+  <h1 class="font-bold text-amber-400 sm:text-4xl mb-6 drop-shadow-lg">Create your account</h1>
 
-      <div>
-        <button type="submit" class="btn-register">Register</button>
-      </div>
-    </form>
+  <form method="POST" class="text-left">
+    {% csrf_token %}
 
-    {% if messages %}
-    <div class="mt-4">
-      {% for message in messages %}
-      <div class="alert-message">
-        {{ message }}
-      </div>
-      {% endfor %}
+    <div class="mb-6">
+      <label for="id_username" class="block text-sm text-gray-300 mb-2">Username</label>
+      <input type="text" name="username" id="id_username" class="w-full px-4 py-3 bg-white text-black rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent" required>
+      {% if form.username.errors %}
+        <p class="text-red-500 text-sm mt-2">{{ form.username.errors }}</p>
+      {% endif %}
     </div>
-    {% endif %}
 
-    <div class="text-center mt-4">
-      <p class="text-sm">
-        Already have an account?
-        <a href="{% url 'main:login' %}" class="register-link">
-          Login here
-        </a>
-      </p>
+    <div class="mb-6">
+      <label for="id_password1" class="block text-sm text-gray-300 mb-2">Password</label>
+      <input type="password" name="password1" id="id_password1" class="w-full px-4 py-3 bg-white text-black rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent" required>
+      {% if form.password1.errors %}
+        <p class="text-red-500 text-sm mt-2">{{ form.password1.errors }}</p>
+      {% endif %}
     </div>
+
+    <div class="mb-6">
+      <label for="id_password2" class="block text-sm text-gray-300 mb-2">Confirm Password</label>
+      <input type="password" name="password2" id="id_password2" class="w-full px-4 py-3 bg-white text-black rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent" required>
+      {% if form.password2.errors %}
+        <p class="text-red-500 text-sm mt-2">{{ form.password2.errors }}</p>
+      {% endif %}
+    </div>
+
+    <div class="flex justify-center">
+      <button type="submit" class="bg-amber-500 text-gray-900 font-semibold rounded-full py-3 px-6 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1 w-full sm:w-auto">Register</button>
+    </div>
+  </form>
+
+  {% if messages %}
+  <ul class="mt-4 text-sm text-red-500">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <div class="mt-8 text-sm text-gray-300">
+    <p>Already have an account?</p>
+    <a href="{% url 'main:login' %}" class="text-amber-400 hover:underline">Login here</a>
   </div>
 </div>
 {% endblock content %}

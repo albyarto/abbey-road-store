@@ -3,126 +3,46 @@
 {% block meta %}
 <title>Login</title>
 <style>
-  /* Global Login Styles */
-  .login {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 40px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-  }
-
-  .login h1 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    font-weight: 700;
-    color: #333;
-  }
-
-  form {
-    margin-top: 20px;
-  }
-
-  input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    margin-bottom: 15px;
-    font-size: 1em;
-    color: #495057;
-    transition: border-color 0.3s ease;
-  }
-
-  input[type="text"]:focus, input[type="password"]:focus {
-    outline: none;
-    border-color: #4a4cb3;
-  }
-
-  .login_btn {
-    background-color: #4a4cb3;
-    color: #fff;
-    font-size: 1.1em;
-    padding: 12px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-
-  .login_btn:hover {
-    background-color: #3b3da5;
-  }
-
-  .login-link {
-    font-size: 0.9rem;
-    color: #4a4cb3;
-    text-decoration: none;
-  }
-
-  /* Register link styling */
-  .register-link {
-    display: block;
-    margin-top: 15px;
-    color: #4a4cb3;
-    font-size: 0.9em;
-    font-weight: 500;
-    text-decoration: none;
-  }
-
-  .register-link:hover {
-    text-decoration: underline;
-  }
-
-  /* Message Styling */
-  ul {
-    list-style-type: none;
-    padding: 0;
-    color: #e74c3c;
-    font-size: 0.9em;
-    margin-top: 15px;
-  }
-
-  ul li {
-    margin-bottom: 10px;
+  body {
+    background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
+    background-size: cover;
   }
 </style>
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-  <h1>Login to your account</h1>
+<div class="container max-w-md mx-auto mt-16 p-8 sm:p-10 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl text-center text-white">
+  <h1 class="font-bold text-amber-400 sm:text-4xl mb-6 drop-shadow-lg">Login to your account</h1>
 
-  <form method="POST" action="">
+  <form method="POST" action="" class="text-left">
     {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Sign in" /></td>
-      </tr>
-    </table>
+
+    <div class="mb-6">
+      <label for="username" class="block text-sm text-gray-300 mb-2">Username</label>
+      <input type="text" name="username" id="username" class="w-full px-4 py-3 bg-white text-black rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent" required>
+    </div>
+
+    <div class="mb-6">
+      <label for="password" class="block text-sm text-gray-300 mb-2">Password</label>
+      <input type="password" name="password" id="password" class="w-full px-4 py-3 bg-white text-black rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent" required>
+    </div>
+
+    <div class="flex justify-center">
+      <input class="login_btn bg-amber-500 text-gray-900 font-semibold rounded-full py-3 px-6 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1 w-full sm:w-auto" type="submit" value="Sign in" />
+    </div>
   </form>
 
   {% if messages %}
-  <ul>
+  <ul class="mt-4 text-sm text-red-500">
     {% for message in messages %}
     <li>{{ message }}</li>
     {% endfor %}
   </ul>
   {% endif %}
-  <div class="text-center mt-4">
-    <p class="text-sm">
-      Don't have an account yet?
-      <a href="{% url 'main:register' %}" class="login-link">
-        Register now
-      </a>
-    </p>
+
+  <div class="mt-8 text-sm text-gray-300">
+    <p>Don't have an account yet?</p>
+    <a href="{% url 'main:register' %}" class="register-link text-amber-400 hover:underline">Register now</a>
   </div>
 </div>
 {% endblock content %}
