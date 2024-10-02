@@ -608,7 +608,7 @@ Margin, border, dan padding adalah tiga konsep penting dalam CSS yang digunakan 
 Kegunaan **flexbox** meliputi pembuatan layout yang fleksibel dan responsif dalam satu dimensi, sedangkan **grid layout** ideal untuk pengaturan elemen dalam dua dimensi, memungkinkan desain yang lebih terstruktur dan kompleks. Masing-masing memiliki kekuatan dan kegunaan tersendiri, dan dalam banyak kasus, pengembang web dapat menggunakan keduanya secara bersamaan untuk mencapai hasil yang diinginkan dalam pengembangan halaman web.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
-### Menambahkan Fitur _edit_ dan _delete_ untuk Masing-Masing _Item_
+### Checklist 1: Menambahkan Fitur _edit_ dan _delete_ untuk Masing-Masing _Item_ ☑️
 1. Di berkas `views.py` pada folder `main`, tambahkan fungsi `delete` dan `edit`.
    ```
    def delete_product(request, id):
@@ -638,5 +638,72 @@ Kegunaan **flexbox** meliputi pembuatan layout yang fleksibel dan responsif dala
    path('delete/<int:id>', delete_product, name='delete_product'),
    ```
 
-### Melakukan kustomisasi pada halaman login, register, dan main
-Untuk melakukan kusotmisasi, kita dapat menambahkan beberapa _style_ pada bagian-bagian yang ingin dikustomisasi. Seperti pada `abbey-road-store` ini, saya sudah mengkustomisasi daftar item menjadi menggunakan _card_, mengkustomisasi tombol, mengatur posisi teks, dan mengatur warna latar belakang _website_.
+### Checklist 2: Melakukan kustomisasi pada semua template HTML yang telah dibuat ☑️
+Untuk melakukan kusotmisasi, kita dapat menambahkan beberapa _style_ pada bagian-bagian yang ingin dikustomisasi dengan menggunakan framework _tailwind css_. Seperti pada `abbey-road-store` ini, saya sudah mengkustomisasi daftar item menjadi menggunakan _card_ dan di dalam sebuah _container_, mengkustomisasi tombol, mengatur posisi teks dan font, dan mengatur latar belakang _website_. Lalu saya juga membuat _navigation bar_ yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+
+Berikut salah satu template HTML yang saya buat (main.html) :
+```
+{% extends 'base.html' %}
+
+<title>Abbey Road Co.</title>
+{% load static %}
+{% block meta %}
+<style>
+  body {
+    background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container max-w-3xl mx-auto mt-16 p-6 sm:p-8 md:p-10 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl text-center text-white">
+  <h1 class="text-2xl font-bold text-amber-400 text-4xl sm:text-5xl mb-6 drop-shadow-lg">{{ app_name }}</h1>
+
+  {% if not product_entries %}
+    <img src="{% static 'image/beatles.png' %}" alt="Sad face" class="w-32 h-32 mb-6 mx-auto"/>
+    <p class="no-data text-gray-200">Belum ada data product pada Abbey Road Store.</p>
+  {% else %}
+    {% for product_entry in product_entries %}
+      <div class="product-card flex flex-col sm:flex-row items-center border-2 border-amber-500 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 bg-white/10 shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2 hover:bg-white/20">
+        {% if product_entry.image %}
+          <div class="product-image w-32 h-32 sm:w-36 sm:h-36 mb-4 sm:mb-0 mr-0 sm:mr-5 bg-cover bg-center rounded-lg" style="background-image: url('{{ product_entry.image.url }}');"></div>
+        {% else %}
+          <div class="product-image w-32 h-32 sm:w-36 sm:h-36 mb-4 sm:mb-0 mr-0 sm:mr-5 bg-cover bg-center rounded-lg" style="background-image: url('https://via.placeholder.com/150');"></div>
+        {% endif %}
+        
+        <div class="product-details text-left flex-grow mb-4 sm:mb-0">
+          <div class="product-name font-lobster text-amber-400 text-2xl sm:text-3xl mb-2 drop-shadow-md">{{ product_entry.name }}</div>
+          <div class="product-price text-lg sm:text-xl text-gray-100 mb-2">Rp. {{ product_entry.price }}</div>
+          <div class="product-description text-gray-300 text-sm sm:text-base">{{ product_entry.description }}</div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row">
+          <a href="{% url 'main:edit_product' product_entry.pk %}" class="mb-4 sm:mb-0 sm:mr-4">
+            <button class="button bg-amber-500 text-gray-900 rounded-full py-2 px-4 sm:py-3 sm:px-6 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1">Edit</button>
+          </a>
+          <a href="{% url 'main:delete_product' product_entry.pk %}">
+            <button class="button-logout bg-red-600 text-white rounded-full py-2 px-4 sm:py-3 sm:px-6 shadow-md hover:bg-red-800 hover:shadow-xl transition-transform transform hover:-translate-y-1">Delete</button>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="button-group flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-8">
+    <a href="{% url 'main:create_product_entry' %}" class="button bg-amber-500 text-gray-900 rounded-full py-3 px-8 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1">Add New Product</a>
+    <a href="{% url 'main:logout' %}" class="button-logout bg-red-600 text-white rounded-full py-3 px-8 shadow-md hover:bg-red-800 hover:shadow-xl transition-transform transform hover:-translate-y-1">Logout</a>
+  </div>
+
+  <div class="information-details mt-12 pt-8 border-t border-amber-500 text-gray-300">
+    <h5 class="font-lobster text-2xl text-amber-400 mb-4 drop-shadow-md">Sesi Terakhir Login: {{ last_login }}</h5>
+    <p><strong>Name:</strong> {{ my_name }}</p>
+    <p><strong>Class:</strong> {{ class }}</p>
+  </div>
+</div>
+
+{% endblock content %}
+
+```
