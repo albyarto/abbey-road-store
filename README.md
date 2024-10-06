@@ -705,3 +705,64 @@ Berikut salah satu template HTML yang saya buat (main.html) :
 {% endblock content %}
 
 ```
+
+---
+
+## Tugas 6
+
+### Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+
+Berikut beberapa manfaat dari penggunaan **JavaScript** dalam pengembangan aplikasi web:
+
+1. **Responsivitas Real-time**: Dengan JavaScript, halaman web bisa merespons tindakan pengguna tanpa perlu memuat ulang seluruh halaman. Contohnya, pengguna dapat mengisi form dan melihat hasil validasi secara langsung melalui fitur seperti AJAX.
+
+2. **Kompatibilitas Cross-Platform**: JavaScript dapat berjalan di hampir semua browser modern dan sistem operasi, sehingga aplikasi web yang dikembangkan menjadi lebih mudah diakses oleh berbagai pengguna tanpa kendala platform.
+
+3. **Ekosistem Framework dan Library yang Kuat**: JavaScript memiliki ekosistem yang kaya, termasuk framework seperti **React**, **Angular**, dan **Vue.js**, serta library seperti **jQuery** dan **D3.js**. Ini mempermudah pengembangan dan memungkinkan pembuatan aplikasi yang lebih efisien dan terstruktur.
+
+4. **Asynchronous Programming**: JavaScript mendukung pemrograman asinkron melalui mekanisme seperti **Promises**, **async/await**, dan **AJAX**, memungkinkan aplikasi menangani beberapa tugas secara bersamaan tanpa membebani performa.
+
+5. **Pengembangan Full-stack**: Dengan **Node.js**, JavaScript dapat digunakan baik di sisi frontend maupun backend, memungkinkan pengembang untuk menggunakan satu bahasa pemrograman di seluruh aplikasi. Ini meningkatkan efisiensi dan konsistensi dalam proses pengembangan.
+
+6. **DOM Manipulation**: JavaScript memungkinkan manipulasi elemen-elemen HTML dan CSS secara langsung melalui Document Object Model (DOM), yang memungkinkan tampilan dinamis dan perubahan konten berdasarkan interaksi pengguna.
+
+### Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+Fungsi penggunaan `await` dalam konteks `fetch()` adalah untuk menunggu **promises** yang dihasilkan oleh `fetch()` hingga selesai. `fetch()` secara default mengembalikan sebuah **promise** yang merepresentasikan permintaan HTTP asinkron. Dengan menggunakan `await`, kita memastikan bahwa kode akan berhenti sejenak dan menunggu hingga proses pengambilan data selesai sebelum melanjutkan ke baris kode berikutnya. Ini membuat kode terlihat seperti berjalan secara sinkron, sehingga lebih mudah dibaca dan dikelola.
+
+Contoh sederhana:
+
+```javascript
+let response = await fetch('https://api.example.com/data');
+let data = await response.json();
+console.log(data);
+```
+
+Dalam contoh di atas, `await` menunggu hingga **promise** yang dihasilkan oleh `fetch()` dan `response.json()` diselesaikan, sehingga kita dapat langsung mengakses data tanpa memerlukan fungsi callback atau `then()` chaining.
+
+### Apa yang Terjadi Jika Tidak Menggunakan `await`?
+
+Jika kita tidak menggunakan `await`, `fetch()` akan mengembalikan **promise** secara langsung, dan kode setelahnya akan dieksekusi sebelum permintaan HTTP selesai. Ini dapat menyebabkan data belum tersedia saat kita mencoba mengaksesnya, karena proses permintaan berjalan secara asinkron.
+
+Contoh tanpa `await`:
+
+```javascript
+let response = fetch('https://api.example.com/data');
+console.log(response); // Ini akan mencetak Promise, bukan data aktual
+```
+
+Pada contoh di atas, tanpa `await`, `response` hanyalah sebuah **promise** yang belum diselesaikan, sehingga kita tidak bisa langsung mengakses hasil dari permintaan HTTP. Untuk mendapatkan data, kita harus menggunakan `then()` untuk menangani **promise** tersebut, seperti:
+
+```javascript
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+Jadi, jika tidak menggunakan `await`, eksekusi kode tidak akan "menunggu" penyelesaian permintaan asinkron, dan kita harus menangani **promise** tersebut secara manual dengan cara lain seperti `then()` atau `catch()`.
+
+### Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+Decorator `csrf_exempt` digunakan pada view yang akan menangani permintaan AJAX POST untuk mengabaikan pemeriksaan **CSRF (Cross-Site Request Forgery)** yang biasanya dilakukan Django secara default. Django memerlukan token CSRF pada setiap permintaan POST sebagai langkah keamanan untuk mencegah serangan CSRF, namun permintaan AJAX mungkin tidak selalu menyertakan token tersebut, terutama jika dikirim tanpa mengikuti mekanisme keamanan CSRF Django. Jika token tidak ada atau tidak valid, Django akan menolak permintaan POST dengan mengembalikan error 403. Dengan menggunakan `csrf_exempt`, pengembang dapat menonaktifkan pemeriksaan ini, yang berguna dalam beberapa situasi seperti ketika permintaan POST tidak melibatkan data sensitif atau ketika integrasi pihak ketiga atau pengujian sedang dilakukan. Namun, penggunaan `csrf_exempt` harus dilakukan dengan hati-hati, karena mengabaikan pemeriksaan ini dapat membuka celah keamanan bagi serangan CSRF pada aplikasi jika tidak dikelola dengan baik.
+
+### Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
