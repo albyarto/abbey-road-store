@@ -8,55 +8,220 @@
     background: url('https://cdn.wallpapersafari.com/53/15/KgyY81.jpg') no-repeat center center fixed;
     background-size: cover;
   }
+  .button {
+    background: linear-gradient(135deg, #FFBF00 0%, #fda085 100%);
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgb(0, 0, 0);
+  }
+
+  .button:hover {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .button-logout {
+    background: linear-gradient(135deg, #ff6a6a 0%, #ff3d3d 100%);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0);
+  }
+
+  .button-logout:hover {
+    background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+<script src="https://unpkg.com/heroicons@1.0.6/dist/outline.js"></script>
 {% endblock meta %}
 
 {% block content %}
 {% include 'navbar.html' %}
 
 <div class="container max-w-3xl mx-auto mt-16 p-6 sm:p-8 md:p-10 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl text-center text-white">
-  <h1 class="text-2xl font-bold text-amber-400 text-4xl sm:text-5xl mb-6 drop-shadow-lg">{{ app_name }}</h1>
+  <h1 class="text-2xl font-bold text-white-400 text-4xl sm:text-5xl mb-6 drop-shadow-lg">{{ app_name }}</h1>
 
-  {% if not product_entries %}
-    <img src="{% static 'image/beatles.png' %}" alt="Sad face" class="w-32 h-32 mb-6 mx-auto"/>
-    <p class="no-data text-gray-200">Belum ada data product pada Abbey Road Store.</p>
-  {% else %}
-    {% for product_entry in product_entries %}
-      <div class="product-card flex flex-col sm:flex-row items-center border-2 border-amber-500 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 bg-white/10 shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2 hover:bg-white/20">
-        {% if product_entry.image %}
-          <div class="product-image w-32 h-32 sm:w-36 sm:h-36 mb-4 sm:mb-0 mr-0 sm:mr-5 bg-cover bg-center rounded-lg" style="background-image: url('{{ product_entry.image.url }}');"></div>
-        {% else %}
-          <div class="product-image w-32 h-32 sm:w-36 sm:h-36 mb-4 sm:mb-0 mr-0 sm:mr-5 bg-cover bg-center rounded-lg" style="background-image: url('https://via.placeholder.com/150');"></div>
-        {% endif %}
-        
-        <div class="product-details text-left flex-grow mb-4 sm:mb-0">
-          <div class="product-name font-lobster text-amber-400 text-2xl sm:text-3xl mb-2 drop-shadow-md">{{ product_entry.name }}</div>
-          <div class="product-price text-lg sm:text-xl text-gray-100 mb-2">Rp. {{ product_entry.price }}</div>
-          <div class="product-description text-gray-300 text-sm sm:text-base">{{ product_entry.description }}</div>
-        </div>
-        
-        <div class="flex flex-col sm:flex-row">
-          <a href="{% url 'main:edit_product' product_entry.pk %}" class="mb-4 sm:mb-0 sm:mr-4">
-            <button class="button bg-amber-500 text-gray-900 rounded-full py-2 px-4 sm:py-3 sm:px-6 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1">Edit</button>
-          </a>
-          <a href="{% url 'main:delete_product' product_entry.pk %}">
-            <button class="button-logout bg-red-600 text-white rounded-full py-2 px-4 sm:py-3 sm:px-6 shadow-md hover:bg-red-800 hover:shadow-xl transition-transform transform hover:-translate-y-1">Delete</button>
-          </a>
-        </div>
-      </div>
-    {% endfor %}
-  {% endif %}
+  <div id="product_entry_cards"></div>
 
   <div class="button-group flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-8">
-    <a href="{% url 'main:create_product_entry' %}" class="button bg-amber-500 text-gray-900 rounded-full py-3 px-8 shadow-md hover:bg-orange-500 hover:shadow-xl transition-transform transform hover:-translate-y-1">Add New Product</a>
-    <a href="{% url 'main:logout' %}" class="button-logout bg-red-600 text-white rounded-full py-3 px-8 shadow-md hover:bg-red-800 hover:shadow-xl transition-transform transform hover:-translate-y-1">Logout</a>
+    <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="button" onclick="showModal();">
+      Add New Product
+    </button>
   </div>
 
-  <div class="information-details mt-12 pt-8 border-t border-amber-500 text-gray-300">
-    <h5 class="font-lobster text-2xl text-amber-400 mb-4 drop-shadow-md">Sesi Terakhir Login: {{ last_login }}</h5>
+  <div class="information-details mt-12 pt-8 border-t border-white-500 text-gray-300">
+    <h5 class="font-lobster text-2xl text-white-400 mb-4 drop-shadow-md">Sesi Terakhir Login: {{ last_login }}</h5>
     <p><strong>Name:</strong> {{ my_name }}</p>
     <p><strong>Class:</strong> {{ class }}</p>
   </div>
 </div>
+
+<div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+  <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out hover:shadow-2xl hover:scale-100">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-indigo-50 shadow-md">
+      <h3 class="text-xl font-semibold text-gray-900">
+        Add New Product Entry
+      </h3>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-4 space-y-6 form-style bg-white">
+      <form id="productEntryForm">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Enter product name" required>
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" name="description" rows="3" class="mt-1 block w-full resize-none border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Enter product description" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="price" class="block text-sm font-medium text-gray-700">Price (Rp)</label>
+          <input type="number" id="price" name="price" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Enter product price" required>
+        </div>
+        <div class="mb-4">
+          <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+          <input type="file" id="image" name="image" accept="image/*" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Choose file" required>
+        </div>
+      </form>
+    </div>
+    <!-- Modal footer -->
+    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b bg-gray-50 justify-center md:justify-end">
+      <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105" id="cancelButton">Cancel</button>
+      <button type="submit" id="submitProductEntry" form="productEntryForm" class="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addProductEntry() {
+    fetch("{% url 'main:add_product_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#productEntryForm')),
+    })
+    .then(response => refreshProductEntries())
+
+    document.getElementById("productEntryForm").reset(); 
+    document.querySelector("[data-modal-toggle='crudModal']").click();
+
+    return false;
+  }
+
+  async function getProductEntries(){
+      return fetch("{% url 'main:show_json' %}").then((res) => res.json())
+  }
+
+  async function refreshProductEntries() {
+    const productContainer = document.getElementById("product_entry_cards");
+    productContainer.innerHTML = "";
+    productContainer.className = "";
+
+    const productEntries = await getProductEntries();
+    let htmlString = "";
+    let classNameString = "";
+
+    if (productEntries.length === 0) {
+        classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+        htmlString = `
+            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+                <img src="{% static 'image/beatles.png' %}" alt="Sad face" class="w-32 h-32 mb-6 mx-auto"/>
+                <p class="no-data text-gray-200">Belum ada data product pada Abbey Road Store.</p>
+            </div>
+        `;
+    } else {
+        classNameString = "space-y-6 w-full";
+        productEntries.forEach((product) => { 
+          const name = DOMPurify.sanitize(product.fields.name);
+          const price = DOMPurify.sanitize(product.fields.price);
+          const description = DOMPurify.sanitize(product.fields.description);
+          const image = DOMPurify.sanitize(product.fields.image);
+
+          htmlString += `
+          <div class="product-card flex flex-col sm:flex-row gap-4 md:gap-8 items-center border-2 border-gray-500 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 bg-white/10 shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2 hover:bg-white/20">
+              <img src="media/${image}" alt="${name}" class="object-cover w-36 h-36 rounded-lg mx-auto">
+
+              <div class="product-details text-left flex-grow mb-4 sm:mb-0">
+                  <div class="product-name font-lobster text-white-400 text-2xl sm:text-3xl mb-2 drop-shadow-md">${name}</div>
+                  <div class="product-price text-lg sm:text-xl text-gray-100 mb-2">Rp. ${price}</div>
+                  <div class="product-description text-gray-300 text-sm sm:text-base">${description}</div>
+              </div>
+              
+              <div class="flex flex-col sm:flex-row">
+                  <a href="/edit-product/${product.pk}" class="mb-4 sm:mb-0 sm:mr-4">
+                    <button class="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h.01M19.071 4.929a2.25 2.25 0 010 3.182L10.41 16.773a2.25 2.25 0 01-1.006.564l-3.536.884.885-3.536a2.25 2.25 0 01.563-1.006l8.661-8.66a2.25 2.25 0 013.182 0z" />
+                      </svg>
+                    </button>
+                  </a>
+                  <a href="/delete/${product.pk}">
+                    <button class="button-logout">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </a>
+              </div>
+          </div>
+          `;
+      });
+    }
+
+    productContainer.className = classNameString;
+    productContainer.innerHTML = htmlString;
+}
+
+refreshProductEntries();
+
+  const modal = document.getElementById('crudModal');
+  const modalContent = document.getElementById('crudModalContent');
+
+  function showModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+  }
+
+  document.getElementById("cancelButton").addEventListener("click", hideModal);
+  document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+  document.getElementById("productEntryForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    addProductEntry();
+  })
+</script>
 
 {% endblock content %}
