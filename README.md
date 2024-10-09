@@ -3,7 +3,7 @@
 ### Tautan ke Project di PWS :
 https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
 
-### Checklist 1: Membuat Proyek Django Baru ☑️
+#### Checklist 1: Membuat Proyek Django Baru ☑️
 1. Buat direktori baru bernama `abbey-road-store` dan nyalakan _virtual environment_ dengan menjalankan perintah berikut di Terminal yang sudah berada di direktori `abbey-road-store`.
    
    `python -m venv env`
@@ -27,7 +27,7 @@ https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
 
    Proyek Django bernama `abbey-road-store` akan muncul di dalam direktori.
 
-### Checklist 2: Membuat Aplikasi `main`☑️
+#### Checklist 2: Membuat Aplikasi `main`☑️
 1. Jalankan perintah berikut di Terminal untuk membuat aplikasi baru.
    
    `python manage.py startapp main`
@@ -40,7 +40,7 @@ https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
    ]
    ```
    
-### Checklist 3: Melakukan _routing_ pada proyek☑️
+#### Checklist 3: Melakukan _routing_ pada proyek☑️
 1. Buka `urls.py` yang ada di dalam direktori `abbey-road-store`.
 2. Pada bagian `import`, tambahkan baris berikut.
 
@@ -59,7 +59,7 @@ https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
    ]
    ```
 
-### Checklist 4: Membuat Model pada Aplikasi `main` dengan atribut wajib `name`, `price`, `description`☑️
+#### Checklist 4: Membuat Model pada Aplikasi `main` dengan atribut wajib `name`, `price`, `description`☑️
 1. Buka berkas `models.py` pada aplikasi `main`, lalu isi dengan kode berikut.
 
    ```
@@ -78,7 +78,7 @@ https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
 
    `python manage.py migrate`
 
-### Checklist 5: Membuat Fungsi pada `views.py`☑️
+#### Checklist 5: Membuat Fungsi pada `views.py`☑️
 1. Buka berkas `views.py` pada aplikasi `main`, kemudian tambahkan baris berikut pada bagian `import`.
 
    `from django.shortcuts import render`
@@ -97,7 +97,7 @@ https://muhammad-albyarto-abbeyroadstore.pbp.cs.ui.ac.id
     return render(request, "main.html", context)
    ```
 
-### Checklist 6:  Membuat sebuah _routing_ pada `urls.py` aplikasi `main`☑️
+#### Checklist 6:  Membuat sebuah _routing_ pada `urls.py` aplikasi `main`☑️
 1. Buat berkas `urls.py` di dalam direktori `main`
 2. Isi urls.py dengan kode:
 ```
@@ -112,7 +112,7 @@ urlpatterns = [
 ```
 
 
-### Checklist 7: Deployment melalui PWS☑️
+#### Checklist 7: Deployment melalui PWS☑️
 1. Buat proyek baru dengan menekan tombol Create New Project lalu masukkan nama proyeknya.
 2. Simpan Project Credentials yang ditampilkan setelah membuat proyek baru
 3. Pada `settings.py` di proyek Django yang sudah kamu buat tadi, tambahkan URL deployment PWS pada `ALLOWED_HOSTS`
@@ -169,7 +169,7 @@ Tanpa method is_valid(), kita tidak dapat memastikan bahwa data yang dikirim ama
 Jika `csrf_token` tidak ditambahkan pada form di Django, penyerang dapat membuat skrip atau tautan yang secara otomatis mengirimkan permintaan ke server dengan memanfaatkan sesi aktif pengguna. Tanpa token ini, server tidak memiliki cara untuk memverifikasi apakah permintaan tersebut berasal dari sumber yang sah, sehingga memungkinkan penyerang melakukan tindakan berbahaya, seperti mengubah data atau melakukan transaksi atas nama pengguna tanpa sepengetahuannya.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
-### Checklist 1: Membuat input form untuk menambahkan objek model☑️
+#### Checklist 1: Membuat input form untuk menambahkan objek model☑️
 1. Buat berkas baru pada direktori `main` bernama `forms.py` dan isi dengan kode berikut.
    ```
    from django.forms import ModelForm
@@ -273,7 +273,7 @@ Jika `csrf_token` tidak ditambahkan pada form di Django, penyerang dapat membuat
     <button>Add New Product Entry</button>
    </a>
    ```
-### Checklist 2: Menambahkan 4 fungsi views dalam format XML, JSON, XML by ID, dan JSON by ID.☑️
+#### Checklist 2: Menambahkan 4 fungsi views dalam format XML, JSON, XML by ID, dan JSON by ID.☑️
 1. Buka `views.py` pada direktori `main` dan tambahkan import berikut.
    ```
    from django.http import HttpResponse
@@ -282,31 +282,31 @@ Jika `csrf_token` tidak ditambahkan pada form di Django, penyerang dapat membuat
 2. Untuk format XML, tambahkan fungsi berikut pada `views.py`.
    ```
    def show_xml(request):
-       data = Progress.objects.all()
+       data = product.objects.all()
        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
    ```
 3. Untuk format JSON, tambahkan fungsi berikut pada `views.py`.
    ```
    def show_json(request):
-       data = Progress.objects.all()
+       data = product.objects.all()
        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
    ```
 4. Untuk format XML by ID, tambahkan fungsi berikut pada `views.py`.
    ```
    def show_xml_by_id(request, id):
-       data = Progress.objects.filter(pk=id)
+       data = product.objects.filter(pk=id)
        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
    ```
 5. Untuk format JSON by ID, tambahkan fungsi berikut pada `views.py`.
    ```
    def show_json_by_id(request, id):
-      data = Progress.objects.filter(pk=id)
+      data = product.objects.filter(pk=id)
       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
    ```
 ### Checklist 3: Membuat routing URL untuk masing-masing views yang telah ditambahkan ☑️
 1. Buka berkas `urls.py`, lalu import 4 fungsi show yang telah kita buat.
    ```
-   from main.views import show_main, create_progress, show_xml, show_json, show_xml_by_id, show_json_by_id
+   from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
    ```
 2. Tambahkan path untuk setiap fungsi di dalam `urlpatterns`.
    ```
@@ -365,7 +365,7 @@ Jadi secara keseluruhan, autentikasi memastikan siapa pengguna tersebut, sedangk
   
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
 
-### Checklist 1: Mengimplementasikan fungsi registrasi, login, dan logout☑️
+#### Checklist 1: Mengimplementasikan fungsi registrasi, login, dan logout☑️
 1. Buka `views.py` pada direktori `main`. Tambahkan beberapa import berikut.
    ```
    #register
@@ -482,7 +482,7 @@ Jadi secara keseluruhan, autentikasi memastikan siapa pengguna tersebut, sedangk
    
    {% endblock content %}
    ```
-4. Buat tombol logout dengan cara tambahkan teks berikut di berkas `main.html` pada direktori `templates` setelah bagian `add new progress`.
+4. Buat tombol logout dengan cara tambahkan teks berikut di berkas `main.html` pada direktori `templates` setelah bagian `add new product`.
    ```
    <a href="{% url 'main:logout' %}">
       <button>Logout</button>
@@ -498,18 +498,18 @@ Jadi secara keseluruhan, autentikasi memastikan siapa pengguna tersebut, sedangk
    path('login/', login_user, name='login'),
    path('logout/', logout_user, name='logout'),
    ```
-### Checklist 2: Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.☑️
+#### Checklist 2: Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.☑️
 1. Jalankan server, lalu buka `http://localhost:8000/` pada web browser.
 2. Pada halaman login, klik `register now`, lalu buat dua buah akun.
-3. Masuk dengan salah satu akun. Klik `add new progress` untuk menambah sebuah progress. Lakukan tiga kali untuk menambah tiga buah progress.
+3. Masuk dengan salah satu akun. Klik `add new product` untuk menambah sebuah product. Lakukan tiga kali untuk menambah tiga buah product.
 4. Lakukan hal yang sama pada akun lainnya.
    
-### Checklist 3: Menghubungkan model Product dengan User☑️
+#### Checklist 3: Menghubungkan model Product dengan User☑️
 1. Buka berkas `models.py` pada direktori `main`. Tambahkan import berikut.
    ```
    from django.contrib.auth.models import User
    ```
-   Masih di berkas yang sama, di dalam `class Progress`, tambahkan baris berikut.
+   Masih di berkas yang sama, di dalam `class product`, tambahkan baris berikut.
    ```
    user = models.ForeignKey(User, on_delete=models.CASCADE)
    ```
@@ -545,7 +545,7 @@ Jadi secara keseluruhan, autentikasi memastikan siapa pengguna tersebut, sedangk
    ```
 3. Lakukan migration dengan cara `py manage.py makemigrations` lalu `py manage.py migrate`
    
-### Checklist 4: Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.☑️
+#### Checklist 4: Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.☑️
 1. Buka berkas `views.py` pada direktori `main`. Tambahkan beberapa import berikut.
    ```
    import datetime
@@ -606,7 +606,7 @@ Margin, border, dan padding adalah tiga konsep penting dalam CSS yang digunakan 
 Kegunaan **flexbox** meliputi pembuatan layout yang fleksibel dan responsif dalam satu dimensi, sedangkan **grid layout** ideal untuk pengaturan elemen dalam dua dimensi, memungkinkan desain yang lebih terstruktur dan kompleks. Masing-masing memiliki kekuatan dan kegunaan tersendiri, dan dalam banyak kasus, pengembang web dapat menggunakan keduanya secara bersamaan untuk mencapai hasil yang diinginkan dalam pengembangan halaman web.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
-### Checklist 1: Menambahkan Fitur _edit_ dan _delete_ untuk Masing-Masing _Item_ ☑️
+#### Checklist 1: Menambahkan Fitur _edit_ dan _delete_ untuk Masing-Masing _Item_ ☑️
 1. Di berkas `views.py` pada folder `main`, tambahkan fungsi `delete` dan `edit`.
    ```
    def delete_product(request, id):
@@ -617,7 +617,7 @@ Kegunaan **flexbox** meliputi pembuatan layout yang fleksibel dan responsif dala
    ```
    def edit_product(request, id):
     product = ProductEntry.objects.get(pk = id)
-    form = ProductEntryForm(request.POST or None, instance=progress)
+    form = ProductEntryForm(request.POST or None, instance=product)
 
     if form.is_valid() and request.method == "POST":
         form.save()
@@ -636,7 +636,7 @@ Kegunaan **flexbox** meliputi pembuatan layout yang fleksibel dan responsif dala
    path('delete/<int:id>', delete_product, name='delete_product'),
    ```
 
-### Checklist 2: Melakukan kustomisasi pada semua template HTML yang telah dibuat ☑️
+#### Checklist 2: Melakukan kustomisasi pada semua template HTML yang telah dibuat ☑️
 Untuk melakukan kusotmisasi, kita dapat menambahkan beberapa _style_ pada bagian-bagian yang ingin dikustomisasi dengan menggunakan framework _tailwind css_. Seperti pada `abbey-road-store` ini, saya sudah mengkustomisasi daftar item menjadi menggunakan _card_ dan di dalam sebuah _container_, mengkustomisasi tombol, mengatur posisi teks dan font, dan mengatur latar belakang _website_. Lalu saya juga membuat _navigation bar_ yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
 
 Berikut salah satu template HTML yang saya buat (main.html) :
@@ -739,7 +739,7 @@ console.log(data);
 
 Dalam contoh di atas, `await` menunggu hingga **promise** yang dihasilkan oleh `fetch()` dan `response.json()` diselesaikan, sehingga kita dapat langsung mengakses data tanpa memerlukan fungsi callback atau `then()` chaining.
 
-### Apa yang Terjadi Jika Tidak Menggunakan `await`?
+#### Apa yang Terjadi Jika Tidak Menggunakan `await`?
 
 Jika kita tidak menggunakan `await`, `fetch()` akan mengembalikan **promise** secara langsung, dan kode setelahnya akan dieksekusi sebelum permintaan HTTP selesai. Ini dapat menyebabkan data belum tersedia saat kita mencoba mengaksesnya, karena proses permintaan berjalan secara asinkron.
 
@@ -764,5 +764,190 @@ Jadi, jika tidak menggunakan `await`, eksekusi kode tidak akan "menunggu" penyel
 Decorator `csrf_exempt` digunakan pada view yang akan menangani permintaan AJAX POST untuk mengabaikan pemeriksaan **CSRF (Cross-Site Request Forgery)** yang biasanya dilakukan Django secara default. Django memerlukan token CSRF pada setiap permintaan POST sebagai langkah keamanan untuk mencegah serangan CSRF, namun permintaan AJAX mungkin tidak selalu menyertakan token tersebut, terutama jika dikirim tanpa mengikuti mekanisme keamanan CSRF Django. Jika token tidak ada atau tidak valid, Django akan menolak permintaan POST dengan mengembalikan error 403. Dengan menggunakan `csrf_exempt`, pengembang dapat menonaktifkan pemeriksaan ini, yang berguna dalam beberapa situasi seperti ketika permintaan POST tidak melibatkan data sensitif atau ketika integrasi pihak ketiga atau pengujian sedang dilakukan. Namun, penggunaan `csrf_exempt` harus dilakukan dengan hati-hati, karena mengabaikan pemeriksaan ini dapat membuka celah keamanan bagi serangan CSRF pada aplikasi jika tidak dikelola dengan baik.
 
 ### Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Pembersihan data input di backend tetap diperlukan meskipun sudah ada validasi di frontend, karena beberapa alasan penting:
 
+- **Keamanan**: Validasi di frontend bisa dilewati oleh pengguna yang memanipulasi request, misalnya dengan mengubah query atau menonaktifkan JavaScript. Backend lebih aman karena data diproses secara tersembunyi dibandingkan dengan frontend.
+
+- **Integritas Data**: Backend bertanggung jawab memastikan semua data yang masuk sesuai aturan. Jika hanya mengandalkan validasi di frontend, data yang tidak valid masih bisa masuk ke sistem. Sebagai contoh, validasi panjang nama di frontend mungkin dibatasi 10 karakter, tetapi hacker bisa mengirim data hingga 1000 karakter melalui API. Backend dan database dapat menangani situasi ini dengan lebih baik.
+- 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+####  Checklist 1: Mengubah kode cards data item agar dapat mendukung AJAX GET dan melakukan pengambilan task menggunakan AJAX GET ☑️
+Pada file `main.html`, hapus card yang ada di bagian body. Lalu, tambahkan _script_ berikut untuk melakukan refresh product secara _asyncronous_.
+   ```
+  <script>
+  function addProductEntry() {
+    fetch("{% url 'main:add_product_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#productEntryForm')),
+    })
+    .then(response => refreshProductEntries())
+
+    document.getElementById("productEntryForm").reset(); 
+    document.querySelector("[data-modal-toggle='crudModal']").click();
+
+    return false;
+  }
+
+  async function getProductEntries(){
+      return fetch("{% url 'main:show_json' %}").then((res) => res.json())
+  }
+
+  async function refreshProductEntries() {
+    const productContainer = document.getElementById("product_entry_cards");
+    productContainer.innerHTML = "";
+    productContainer.className = "";
+
+    const productEntries = await getProductEntries();
+    let htmlString = "";
+    let classNameString = "";
+
+    if (productEntries.length === 0) {
+        classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+        htmlString = `
+            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+                <img src="{% static 'image/beatles.png' %}" alt="Sad face" class="w-32 h-32 mb-6 mx-auto"/>
+                <p class="no-data text-gray-200">Belum ada data product pada Abbey Road Store.</p>
+            </div>
+        `;
+    } else {
+        classNameString = "space-y-6 w-full";
+        productEntries.forEach((product) => { 
+          const name = DOMPurify.sanitize(product.fields.name);
+          const price = DOMPurify.sanitize(product.fields.price);
+          const description = DOMPurify.sanitize(product.fields.description);
+          const image = product.fields.image;
+
+          htmlString += `
+          <div class="product-card flex flex-col sm:flex-row gap-4 md:gap-8 items-center border-2 border-gray-500 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 bg-white/10 shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2 hover:bg-white/20">
+              <img src="media/${image}" alt="${name}" class="object-cover w-36 h-36 rounded-lg mx-auto">
+
+              <div class="product-details text-left flex-grow mb-4 sm:mb-0">
+                  <div class="product-name font-lobster text-white-400 text-2xl sm:text-3xl mb-2 drop-shadow-md">${name}</div>
+                  <div class="product-price text-lg sm:text-xl text-gray-100 mb-2">Rp. ${price}</div>
+                  <div class="product-description text-gray-300 text-sm sm:text-base">${description}</div>
+              </div>
+              
+              <div class="flex flex-col sm:flex-row">
+                  <a href="/edit-product/${product.pk}" class="mb-4 sm:mb-0 sm:mr-4">
+                    <button class="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h.01M19.071 4.929a2.25 2.25 0 010 3.182L10.41 16.773a2.25 2.25 0 01-1.006.564l-3.536.884.885-3.536a2.25 2.25 0 01.563-1.006l8.661-8.66a2.25 2.25 0 013.182 0z" />
+                      </svg>
+                    </button>
+                  </a>
+                  <a href="/delete/${product.pk}">
+                    <button class="button-logout">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </a>
+              </div>
+          </div>
+          `;
+      });
+    }
+
+    productContainer.className = classNameString;
+    productContainer.innerHTML = htmlString;
+}
+
+refreshProductEntries();
+   ```
+   Tambahkan juga `<div id="product_entry_cards"></div>` sebagai target untuk menampilkan product tersebut.
+   
+#### Checklist 2: Membuat Fitur add product by AJAX ☑️
+1. Pada berkas `views.py`, tambahkan import berikut
+
+   `from django.views.decorators.csrf import csrf_exempt`
+
+   Tambahkan juga fungsi berikut untuk menambahkan product dengan AJAX.
+   ```
+   @csrf_exempt
+   @require_POST
+   def add_product_entry_ajax(request):
+    name = strip_tags(request.POST.get("name"))
+    price = strip_tags(request.POST.get("price"))
+    description = strip_tags(request.POST.get("description"))
+    image = request.FILES.get("image")
+    user = request.user
+    
+    new_product = ProductEntry(
+        name=name, price=price,
+        description=description, image=image,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)
+   ```
+2. Lakukan routing dengan mengimpor fungsi tersebut di `urls.py`, lalu tambahkan path di `urlpatterns`.
+3. Di berkas `main.html`, tambahkan script berikut.
+   ```
+   function addProductEntry() {
+    fetch("{% url 'main:add_product_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#productEntryForm')),
+    })
+    .then(response => refreshProductEntries())
+
+    document.getElementById("productEntryForm").reset(); 
+    document.querySelector("[data-modal-toggle='crudModal']").click();
+
+    return false;
+   }
+   ```
+4. Tambahkan tombol untuk membuka form add product by AJAX.
+   ```
+   <div class="button-group flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-8">
+    <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="button" onclick="showModal();">
+      Add New Product
+    </button>
+   </div>
+   ```
+5. Tambahkan _form_ add product by AJAX berikut.
+   ```
+   <div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+      <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out hover:shadow-2xl hover:scale-100">
+       <!-- Modal header -->
+       <div class="flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-indigo-50 shadow-md">
+         <h3 class="text-xl font-semibold text-gray-900">
+           Add New Product Entry
+         </h3>
+         <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+           <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+           </svg>
+           <span class="sr-only">Close modal</span>
+         </button>
+       </div>
+       <!-- Modal body -->
+       <div class="px-6 py-4 space-y-6 form-style bg-white">
+         <form id="productEntryForm">
+           <div class="mb-4">
+             <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+             <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Enter product name" required>
+           </div>
+           <div class="mb-4">
+             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+             <textarea id="description" name="description" rows="3" class="mt-1 block w-full resize-none border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Enter product description" required></textarea>
+           </div>
+           <div class="mb-4">
+             <label for="price" class="block text-sm font-medium text-gray-700">Price (Rp)</label>
+             <input type="number" id="price" name="price" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Enter product price" required>
+           </div>
+           <div class="mb-4">
+             <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+             <input type="file" id="image" name="image" accept="image/*" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-white-500" placeholder="Choose file" required>
+           </div>
+         </form>
+       </div>
+       <!-- Modal footer -->
+       <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b bg-gray-50 justify-center md:justify-end">
+         <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105" id="cancelButton">Cancel</button>
+         <button type="submit" id="submitProductEntry" form="productEntryForm" class="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Save</button>
+       </div>
+     </div>
+   </div>
+   ```
+   Dengan form ini, ketika tombol `Add New Product Entry` pada form diklik, script pada nomor 3 akan dijalankan, sehingga akan menambahkan product ke card dan melakukan refresh halaman.
