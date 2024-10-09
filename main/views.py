@@ -91,15 +91,14 @@ def logout_user(request):
     return response
 
 def edit_product(request, id):
-    product = ProductEntry.objects.get(pk = id)
+    product = ProductEntry.objects.get(pk=id)
+    form = ProductEntryForm(request.POST or None, request.FILES or None, instance=product)
 
-    form = ProductEntryForm(request.POST or None, instance=product)
-
-    if form.is_valid() and request.method == "POST":
+    if request.method == "POST" and form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
+        return redirect(reverse("main:show_main"))
 
-    context = {'form': form}
+    context = {"form": form}
     return render(request, "edit_product.html", context)
 
 def delete_product(request, id):

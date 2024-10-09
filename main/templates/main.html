@@ -9,7 +9,7 @@
     background-size: cover;
   }
   .button {
-    background: linear-gradient(135deg, #FFBF00 0%, #fda085 100%);
+    background: linear-gradient(135deg, #0022ff 0%, #549ebb 100%);
     color: #ffffff;
     font-weight: bold;
     border: none;
@@ -20,7 +20,7 @@
   }
 
   .button:hover {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #6facd7 0%, #132560 100%);
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
@@ -151,7 +151,7 @@
           const name = DOMPurify.sanitize(product.fields.name);
           const price = DOMPurify.sanitize(product.fields.price);
           const description = DOMPurify.sanitize(product.fields.description);
-          const image = DOMPurify.sanitize(product.fields.image);
+          const image = product.fields.image;
 
           htmlString += `
           <div class="product-card flex flex-col sm:flex-row gap-4 md:gap-8 items-center border-2 border-gray-500 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 bg-white/10 shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2 hover:bg-white/20">
@@ -222,6 +222,6 @@ refreshProductEntries();
     e.preventDefault();
     addProductEntry();
   })
+  
 </script>
-
 {% endblock content %}
