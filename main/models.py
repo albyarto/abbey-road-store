@@ -9,3 +9,4 @@ class ProductEntry(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     image = models.ImageField()
+    amount = models.IntegerField()
