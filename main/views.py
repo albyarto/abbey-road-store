@@ -71,6 +71,7 @@ def login_user(request):
    if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
 
+        # Tugas 6
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -107,6 +108,7 @@ def delete_product(request, id):
     product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
 
+# Tugas 6
 @csrf_exempt
 @require_POST
 def add_product_entry_ajax(request):
